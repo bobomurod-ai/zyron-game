@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYRON - 2D Kosmik Jang va Sarguzasht O'yini</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+
+        <!-- ==========================================
+             TOP STATUS BAR (Doimiy yuqori panel)
+             ========================================== -->
+        <header id="top-bar">
+            <div class="logo-badge">
+                <span class="logo-title">ZYRON</span>
+                <span class="logo-sub">2D SCI-FI SHOOTER</span>
+            </div>
+            <div class="top-stats-group">
+                <div class="stat-pill coins">
+                    <span>Oltin:</span>
+                    <strong id="menu-coins-display">300 <span class="coin-icon">💰</span></strong>
+                </div>
+                <div class="stat-pill">
+                    <span>Kema:</span>
+                    <strong id="menu-hero-display" style="color:var(--primary-cyan);">Zyron-1</strong>
+                </div>
+                <div class="stat-pill">
+                    <span>Sayyora:</span>
+                    <strong id="menu-planet-display" style="color:var(--accent-orange);">Aethelgard</strong>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==========================================
+             MAIN MENU SCREEN (Bosh Sahifa Menyu)
+             ========================================== -->
+        <main id="main-menu-screen">
+            <div class="menu-hero-showcase">
+                <h1 class="zyron-main-title">ZYRON</h1>
+                <p class="zyron-tagline">KOINOTNI MAXLUQLARDAN OZOD QILING • AFSONAVIY 2D JANG</p>
+            </div>
+
+            <div class="menu-grid">
+                <!-- Big Primary Button: O'yinni boshlash -->
+                <button id="btn-start-game" class="menu-card-btn primary-start">
+                    <span class="btn-icon">🚀</span>
+                    <span>O'YINNI BOSHLASH</span>
+                </button>
+
+                <!-- Xarita: Sayyoralarni tanlash -->
+                <button id="btn-galaxy-map" class="menu-card-btn">
+                    <span class="btn-icon">🗺️</span>
+                    <span>XARITA (SAYYORALAR)</span>
+                </button>
+
+                <!-- Jihozlar va Qurollar -->
+                <button id="btn-weapons" class="menu-card-btn">
+                    <span class="btn-icon">⚔️</span>
+                    <span>JIHOZLAR VA QUROLLAR</span>
+                </button>
+
+                <!-- Qahramonlar -->
+                <button id="btn-heroes" class="menu-card-btn">
+                    <span class="btn-icon">🦸</span>
+                    <span>QAHRAMONLAR</span>
+                </button>
+
+                <!-- Kuchaytirish -->
+                <button id="btn-upgrades" class="menu-card-btn">
+                    <span class="btn-icon">⚡</span>
+                    <span>KUCHAYTIRISH</span>
+                </button>
+
+                <!-- Topshiriq va Jumboqlar -->
+                <button id="btn-quests" class="menu-card-btn">
+                    <span class="btn-icon">🧩</span>
+                    <span>TOPSHIRIQ VA JUMBOQ</span>
+                </button>
+
+                <!-- 2D Syujetlar -->
+                <button id="btn-story" class="menu-card-btn">
+                    <span class="btn-icon">📜</span>
+                    <span>2D SYUJETLAR</span>
+                </button>
+
+                <!-- Yutuqlar -->
+                <button id="btn-achievements" class="menu-card-btn">
+                    <span class="btn-icon">🏆</span>
+                    <span>YUTUQLAR</span>
+                </button>
+
+                <!-- Sozlamalar -->
+                <button id="btn-settings" class="menu-card-btn">
+                    <span class="btn-icon">⚙️</span>
+                    <span>SOZLAMALAR</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- ==========================================
+             MODALS CONTAINER
+             ========================================== -->
+
+        <!-- 🗺️ Galaxy Map Modal -->
+        <div id="modal-galaxy-map" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>🗺️ GALAKTIKA XARITASI VA SAYYORALAR</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body" id="galaxy-planets-list">
+                    <!-- Dynamic Planets -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ⚔️ Weapons & Arsenal Modal -->
+        <div id="modal-weapons" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>⚔️ ARSENAL: O'Q OTUVCHI QUROLLAR</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body" id="weapons-list">
+                    <!-- Dynamic Weapons -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 🦸 Heroes Modal -->
+        <div id="modal-heroes" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>🦸 QAHRAMON KEMALARI ANGARI</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body" id="heroes-list">
+                    <!-- Dynamic Heroes -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ⚡ Upgrades Modal -->
+        <div id="modal-upgrades" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>⚡ TEXNOLOGIYA VA KUCHAYTIRISH DARAXTI</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body" id="upgrades-list">
+                    <!-- Dynamic Upgrades -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 🧩 Quests & Puzzles Modal -->
+        <div id="modal-quests" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>🧩 TOPSHIRIQLAR VA ALIEN ENERGIYA JUMBOQLARI</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Quests List View -->
+                    <div id="quests-list-container">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <h3 style="color:var(--primary-cyan); font-family:var(--font-heading);">FAOL TOPSHIRIQLAR</h3>
+                            <button id="btn-open-puzzle" class="btn-action unlock-btn">🌀 SIRLI JUMBOQNI YECHISH (+TANGA)</button>
+                        </div>
+                        <div id="quests-list" style="display:flex; flex-direction:column; gap:12px;">
+                            <!-- Dynamic Quests -->
+                        </div>
+                    </div>
+
+                    <!-- Alien Circuit Puzzle Game View -->
+                    <div id="puzzle-game-container" class="hidden">
+                        <div class="puzzle-top-bar">
+                            <button id="btn-puzzle-back" class="btn-action">← TOPSHIRIQLARGA QAYTISH</button>
+                            <span id="puzzle-status-text" style="color:var(--primary-cyan);">Quvvat simlarini burab chiqishga ulang!</span>
+                            <span id="puzzle-timer" style="color:var(--accent-gold);">00:00</span>
+                        </div>
+
+                        <div id="puzzle-board">
+                            <!-- Dynamic Grid -->
+                        </div>
+
+                        <div style="display:flex; gap:12px; margin-top:10px;">
+                            <button id="btn-puzzle-reset" class="btn-action">QAYTA ARALASHTIRISH</button>
+                            <button id="puzzle-claim-btn" class="btn-action unlock-btn hidden">YANGI JUMBOQ OLISH ▶</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📜 2D Story Chapters Modal -->
+        <div id="modal-story" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>📜 2D SYUJETLAR VA KOINOT TARIXI</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body" id="story-chapters-list">
+                    <!-- Dynamic Chapters -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 🏆 Achievements Modal -->
+        <div id="modal-achievements" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>🏆 YUTUQLAR VA MUKOFOTLAR</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body" id="achievements-list">
+                    <!-- Dynamic Achievements -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ⚙️ Settings Modal -->
+        <div id="modal-settings" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>⚙️ O'YIN SOZLAMALARI VA BOSHQARUV</h2>
+                    <button class="btn-close-modal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="upgrade-card" style="flex-direction:column; align-items:stretch; gap:16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <label>🔊 Ovoz Effektlari (SFX):</label>
+                            <input type="range" id="setting-sfx-volume" min="0" max="100" value="80" style="width:200px;">
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <label>🎵 Sintetik Fon Musiqasi (BGM):</label>
+                            <input type="range" id="setting-music-volume" min="0" max="100" value="50" style="width:200px;">
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <label>💥 Ekran Silkinishi (Screen Shake):</label>
+                            <input type="checkbox" id="setting-screenshake" checked style="width:24px; height:24px;">
+                        </div>
+                    </div>
+
+                    <div class="upgrade-card" style="flex-direction:column; align-items:stretch; gap:10px;">
+                        <h3 style="color:var(--primary-cyan); font-family:var(--font-heading);">🎮 BOSHQARUV TUGMALARI</h3>
+                        <p>• <strong>W, A, S, D</strong> yoki <strong>Strelkalar</strong>: Kosmik kemani harakatlantirish</p>
+                        <p>• <strong>Sichqoncha</strong>: Nishonga olish va Otish (Chap tugma yoki bosib turish)</p>
+                        <p>• <strong>Probeldan (Space)</strong>: Qahramonning Maxsus Kuchini (Special Ability) ishga tushirish</p>
+                        <p>• <strong>P</strong> yoki <strong>Escape</strong>: O'yinni to'xtatib turish (Pauza)</p>
+                    </div>
+
+                    <div style="margin-top:10px; display:flex; justify-content:flex-end;">
+                        <button id="btn-reset-progress" class="btn-action" style="background:rgba(255,51,68,0.2); border-color:var(--accent-red); color:var(--accent-red);">
+                            🗑️ O'YINNI QAYTA BOSHLASH (RESET)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             GAMEPLAY CANVAS & HUD SCREEN
+             ========================================== -->
+        <div id="game-screen" class="hidden">
+            <canvas id="game-canvas"></canvas>
+
+            <div id="game-hud">
+                <div class="hud-top-row">
+                    <div class="hud-bars-container">
+                        <!-- HP Bar -->
+                        <div class="hud-bar-wrapper">
+                            <div id="hud-hp-bar" class="hud-bar-fill hp" style="width:100%;"></div>
+                            <div class="hud-bar-label">
+                                <span>HP</span>
+                                <span id="hud-hp-text">100 / 100</span>
+                            </div>
+                        </div>
+                        <!-- Shield Bar -->
+                        <div class="hud-bar-wrapper">
+                            <div id="hud-shield-bar" class="hud-bar-fill shield" style="width:100%;"></div>
+                            <div class="hud-bar-label">
+                                <span>QALQON</span>
+                                <span id="hud-shield-text">50 / 50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hud-center-stats">
+                        <div id="hud-wave" class="hud-wave-text">To'lqin: 1/3</div>
+                        <div id="hud-coins" class="hud-coins-text">300 💰</div>
+                    </div>
+
+                    <button id="btn-pause-game" class="hud-btn">⏸️ PAUZA (P)</button>
+                </div>
+
+                <!-- Boss Health Bar -->
+                <div id="boss-hud-container" class="hidden">
+                    <div id="boss-name-text">BOSS NAME</div>
+                    <div class="boss-bar-wrapper">
+                        <div id="boss-hp-bar" style="width:100%;"></div>
+                    </div>
+                </div>
+
+                <!-- Bottom HUD Special Ability -->
+                <div class="hud-bottom-row">
+                    <button id="hud-special-btn" class="special-btn">
+                        <span>🌟 MAXSUS KUCH (SPACE)</span>
+                        <small id="hud-special-cd">TAYYOR</small>
+                    </button>
+                </div>
+            </div>
+
+            <div id="game-wave-banner" class="hidden"></div>
+        </div>
+
+        <!-- ==========================================
+             2D VISUAL STORY DIALOGUE OVERLAY
+             ========================================== -->
+        <div id="story-overlay" class="hidden">
+            <div class="story-header-row">
+                <span id="story-chapter-title">Muqaddima</span>
+                <button id="btn-story-skip" class="btn-action" style="padding:4px 10px; font-size:0.75rem;">O'TKAZIB YUBORISH ▶▶</button>
+            </div>
+            <div class="story-body-row">
+                <div id="story-avatar-box">
+                    <!-- SVG Avatar -->
+                </div>
+                <div class="story-text-container">
+                    <div id="story-speaker-name">Kapitan Zaxar</div>
+                    <div id="story-text">Dialog matni bu yerda chiqadi...</div>
+                </div>
+            </div>
+            <div class="story-footer-row">
+                <button id="btn-story-next" class="btn-action unlock-btn">DAVOM ETISH ▶</button>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             IN-GAME PAUSE MODAL
+             ========================================== -->
+        <div id="pause-modal" class="modal-overlay hidden">
+            <div class="modal-window" style="max-width:400px; text-align:center;">
+                <div class="modal-header">
+                    <h2>⏸️ O'YIN TO'XTATILDI</h2>
+                </div>
+                <div class="modal-body" style="gap:16px; padding:30px;">
+                    <button id="btn-resume-game" class="btn-action active-btn" style="padding:14px;">DAVOM ETTIRISH</button>
+                    <button id="btn-quit-game" class="btn-action" style="padding:14px; background:rgba(255,51,68,0.2); border-color:var(--accent-red);">BOSH MENYUGA CHIQISH</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             VICTORY RECAP MODAL
+             ========================================== -->
+        <div id="victory-modal" class="modal-overlay hidden">
+            <div class="modal-window" style="max-width:500px;">
+                <div class="modal-body recap-box">
+                    <h2 class="recap-title victory">🎉 G'ALABA!</h2>
+                    <p style="color:var(--primary-cyan); font-size:1.1rem;"><strong id="win-planet-name">Aethelgard</strong> sayyorasi maxluqlardan tozalandi!</p>
+                    <div class="recap-stats-list">
+                        <div>To'plangan Oltin: <strong id="win-coins-summary" style="color:var(--accent-gold);">+350 💰</strong></div>
+                        <div>Yo'q qilingan dushmanlar: <strong id="win-kills-summary" style="color:var(--accent-green);">28</strong></div>
+                    </div>
+                    <button id="btn-victory-exit" class="btn-action unlock-btn" style="padding:14px 28px; font-size:1.1rem;">BOSH MENYUGA QAYTISH ▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             GAMEOVER RECAP MODAL
+             ========================================== -->
+        <div id="gameover-modal" class="modal-overlay hidden">
+            <div class="modal-window" style="max-width:500px;">
+                <div class="modal-body recap-box">
+                    <h2 class="recap-title defeat">☠️ KEMA PORTLADI!</h2>
+                    <p style="color:var(--text-muted); font-size:1.05rem;">Maxluqlar juda kuchli keldi. Kemani kuchaytirib qayta urinib ko'ring!</p>
+                    <div class="recap-stats-list">
+                        <div>Yig'ilgan Oltin: <strong id="over-coins-summary" style="color:var(--accent-gold);">+80 💰</strong></div>
+                        <div>Yo'q qilingan: <strong id="over-kills-summary" style="color:#ffffff;">12</strong></div>
+                    </div>
+                    <button id="btn-gameover-exit" class="btn-action" style="padding:14px 28px; font-size:1.1rem;">BOSH MENYUGA QAYTISH</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts in proper dependency order -->
+    <script src="js/audio.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/weapons.js"></script>
+    <script src="js/heroes.js"></script>
+    <script src="js/planets.js"></script>
+    <script src="js/story.js"></script>
+    <script src="js/puzzles.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+
+    <!-- App Bootstrap -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize sound on user interaction
+            document.body.addEventListener('click', () => {
+                window.soundEngine.init();
+            }, { once: true });
+
+            // Initialize Game Canvas
+            const canvas = document.getElementById('game-canvas');
+            window.zyronGame.init(canvas);
+
+            // Initialize UI
+            window.uiManager.init();
+
+            console.log("ZYRON Game fully initialized!");
+        });
+    </script>
+</body>
+</html>
